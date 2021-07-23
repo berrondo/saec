@@ -1,0 +1,6 @@
+Django
+django-extensions
+python-decouple
+dj-database-url
+djangorestframework
+psycopg2-binary
