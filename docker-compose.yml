@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:12.7-alpine3.14
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=saec_dev
+    networks:
+      - saecnet
+
+#  pgadmin:
+#    links:
+#      - db:postgres
+#    image: dpage/pgadmin4:5.5
+#    restart: always
+#    ports:
+#      - 16542:80
+#    networks:
+#      - saecnet
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: pgadmin@example.com
+#      PGADMIN_DEFAULT_PASSWORD: admin
+
+volumes:
+  postgres_data:
+
+networks:
+  saecnet:
+    driver: bridge
