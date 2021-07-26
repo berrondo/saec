@@ -22,7 +22,7 @@ Para a aplicação, certifique-se de ter o Git e o Python 3.9.6 instalado:
 
 1. Clone o repositório
 2. Crie um *virtualenv* com Python 3.9.6
-3. Ative o *virtualenv&*
+3. Ative o *virtualenv*
 4. Instale as dependências do projeto
 5. Configure a instância da aplicação com o .env
 6. Execute as migrações de banco de dados   
@@ -48,15 +48,15 @@ python manage.py runserver
 
 ### endpoint 1
 
-Receber uma solicitação de agendamento de envio de comunicação (SAEC) com os informações:
+Receber uma solicitação de agendamento de envio de comunicação (SAEC) com as informações:
 
  - Data/Hora para o envio,
  - Destinatário,
  - Mensagem a ser entregue
 
 1. Assumiremos que o "Destinatário" é uma Pessoa (um Cliente) pré-cadastrada e será desse cadastro que obteremos:
- - endereço de email,
- - número do telefone, para SMS e whatsapp
+  - endereço de email,
+  - número do telefone, para SMS e whatsapp
 
 2. Assumiremos que uma mensagem pode ser enviada para um destinatário único (personalizada) ou para vários destinatários (por exemplo, uma campanha)
 
