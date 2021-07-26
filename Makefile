@@ -5,6 +5,9 @@ test: tests
 
 t: tests
 
+pt:
+	pytest
+
 run:
 	python manage.py runserver
 
@@ -15,3 +18,6 @@ migrate:
 
 makemi:
 	python manage.py makemigrations
+
+migra:
+	python manage.py makemigrations && python manage.py migrate
