@@ -1,4 +1,4 @@
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/berrondo/saec)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/berrondo/saec-1)
 
 # SAEC - Solicitação de Agendamento de Envio de Comunicação
 
@@ -46,22 +46,78 @@ python manage.py runserver
 
 ## O Problema
 
-### endpoint 1
+### (1) Primeiro endpoint, o agendador:
+#### POST /agendamento
 
-Receber uma solicitação de agendamento de envio de comunicação (SAEC) com as informações:
+Este *endpoint* vai receber uma solicitação de agendamento de envio de comunicação (SAEC) com as seguintes informações:
 
  - Data/Hora para o envio,
  - Destinatário,
- - Mensagem a ser entregue
+ - Mensagem a ser entregue,
 
-1. Assumiremos que o "Destinatário" é uma Pessoa (um Cliente) pré-cadastrada e será desse cadastro que obteremos:
-  - endereço de email,
-  - número do telefone, para SMS e whatsapp
+ 1. Assumiremos que o serviço solicitador do agendamento tem acesso à base de Clientes, sendo capaz de selecionar aquele(s) que será(ão) alvo(s) de uma dada comunicação e suas informações de contato.
 
-2. Assumiremos que uma mensagem pode ser enviada para um destinatário único (personalizada) ou para vários destinatários (por exemplo, uma campanha)
+ 2. é responsabilidade do solicitador do agendamento a formatação definitiva das mensagens, considerando limites do meio escolhido, *place holders* para eventual substituição, formatação, etc.
 
-3. Assumiremos que o serviço solicitador do agendamento tem acesso à base de Clientes, sendo capaz de selecionar aquele(s) que será(ão) alvo(s) de uma dada comunicação. E responsabilidade dele fornecer o(s) id(s) de Cliente para o(s) qual(is) queira agendar comunicação(ões).
+ 3. O agendador não fará qualquer validação ou tratamento da mensagem.
 
-4. Assumiremos que o serviço de envio das comunicações será capaz de lidar com cada um dos meios de envio previstos (emal, sms, push e whatsapp) e gerenciar o fluxo e os status peculiares de cada meio.
+ 4. A solicitação de agendamento será feita assim:
 
-5. Assumiremos um serviço de push em *broadcast*, ou seja, não individualizado.
+```
+    POST /agendamento
+    {
+        "data": UMA_DATA_FUTURA,
+        "mensagem": "Bom dia!",
+        "via": "email",
+        "para": "e@mail.com"
+    }
+```
+
+ 5. “**via**“ pode ser **email**, **sms**, **whatsapp** ou **push**.
+    
+ 6. “**para**” será informado em função da “**via**” escolhida, respetivamente: **endereço de email**, **número de telefone**, **número de telefone**, **token id** ou informação pertinente ao serviço de “*push notification*” utilizado.
+
+ 7. A flexibilidade para o envio é bastante grande. A mesma mensagem pode ser enviada por qualquer combinação das quatro opções de “**via**” e a mesma mensagem pode ser enviada “**para**” vários destinos diferentes, permitindo a utilização do agendamento também para “campanhas”.
+
+ 8. Espera-se que o responsável pelo *envio* das comunicações seja capaz de lidar com cada “**via**” prevista (email, sms, push e whatsapp) e gerenciar fluxo e status peculiares de cada “**via**”.
+
+### (2) Segundo endpoint, consulta ao status do agendamento:
+#### GET /agendamento/{id}
+
+A consulta pelo id do agendamento retornará:
+
+```
+    GET /agendamento/1234567
+    {
+        "id": '1234567',
+        "data": UMA_DATA_FUTURA,
+        "mensagem": "Bom dia!",
+        "via": "email",
+        "para": "e@mail.com"
+        "status": "AGENDADA",
+    }
+```
+
+### (3) Terceiro endpoint, cancelando um agendamento:
+#### DELETE /agendamento/{id}
+
+Assumiremos um DELETE “lógico”, não “físico”.
+
+Para ser cancelada, uma comunicação agendada deverá estar em status **AGENDADA**, ou seja, não ter sido ainda **ENVIADA**. Assim, o cancelamento deve ser solicitado antes da data agendada para o envio.
+
+O cancelamento não terá nenhum efeito sobre os status **PROCESSADA** ou **CANCELADA**.
+
+O retorno desta requisição será:
+
+```
+    DELETE agendamento/1234567
+    GET agendamento/1234567
+    {
+        "id": '1234567',
+        "data": UMA_DATA_FUTURA,
+        "mensagem": "Bom dia!",
+        "via": "email",
+        "para": "e@mail.com"
+        'status': "CANCELADA",
+    }
+```
