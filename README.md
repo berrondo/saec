@@ -1,22 +1,10 @@
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/berrondo/saec-1)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/berrondo/saec)
 
 # SAEC - Solicitação de Agendamento de Envio de Comunicação
 
-Desenvolvimento de uma plataforma de comunicação
+Uma plataforma de comunicação para agendar o envio de mensagens por vários meios.
 
 ## Para executar, desenvolver e/ou testar...
-
-Levante primeiro o banco de dados. Voce não precisa ter o *postgres* instalado se tiver o *docker-compose*:
-
-### Postgres (docker-compose):
-
-```console
-# para executar o banco de dados postgres
-docker-compose up --build -d
-
-# para parar o banco de dados:
-docker-compose down
-```
 
 Para a aplicação, certifique-se de ter o Git e o Python 3.9.6 instalado:
 
@@ -30,9 +18,9 @@ Para a aplicação, certifique-se de ter o Git e o Python 3.9.6 instalado:
 8. Rode o servidor da aplicação
 
 ```console
-git clone git@github.com:berrondo/ca.git ca
+git clone git@github.com:berrondo/saec.git saec
 
-cd ca
+cd saec
 python -m venv env
 source env/bin/activate
 
@@ -40,8 +28,20 @@ pip install -r requirements-dev.txt
 cp contrib/env_sample .env
 
 python manage.py migrate
-python manage.py test
+pytest
 python manage.py runserver
+```
+
+### Postgres (docker-compose):
+
+Levante o banco de dados. Voce não precisa ter o *postgres* instalado se tiver o *docker-compose*:
+
+```console
+# para executar o banco de dados postgres
+docker-compose up --build -d
+
+# para parar o banco de dados:
+docker-compose down
 ```
 
 ## O Problema
@@ -65,7 +65,8 @@ Este *endpoint* vai receber uma solicitação de agendamento de envio de comunic
 
 ```
     POST /agendamento
-    {
+    
+    dados = {
         "data": UMA_DATA_FUTURA,
         "mensagem": "Bom dia!",
         "via": "email",
@@ -86,6 +87,7 @@ A consulta pelo id do agendamento retornará:
 
 ```
     GET /agendamento/1234567
+    
     {
         "id": '1234567',
         "data": UMA_DATA_FUTURA,
@@ -119,3 +121,5 @@ O retorno desta requisição será:
         'status': "CANCELADA",
     }
 ```
+
+Não será permitida a atualização dos dados de qualquer agendamento. Se realmente necessário, é preciso CANCELAR (DELETE) o agendamento e enviar a nova versão desejada.
