@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from saec.core.models import ComunicacaoAgendada
+from saec.core.serializers import ComunicacaoAgendadaSerializer
+
+
+class ComunicacaoAgendadaViewSet(viewsets.ModelViewSet):
+    queryset = ComunicacaoAgendada.objects.all()
+    serializer_class = ComunicacaoAgendadaSerializer
