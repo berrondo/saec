@@ -79,8 +79,6 @@ Este *endpoint* vai receber uma solicitação de agendamento de envio de comunic
 
  7. A flexibilidade para o envio é bastante grande. A mesma mensagem pode ser enviada por qualquer combinação das quatro opções de “**via**” e a mesma mensagem pode ser enviada “**para**” vários destinos diferentes, permitindo a utilização do agendamento também para “campanhas”.
 
- 8. Espera-se que o responsável pelo *envio* das comunicações seja capaz de lidar com cada “**via**” prevista (email, sms, push e whatsapp) e gerenciar fluxo e status peculiares de cada “**via**”.
-
 ### (2) Segundo endpoint, consulta ao status do agendamento:
 #### GET /agendamento/{id}
 
