@@ -1,4 +1,4 @@
-Django
+Django==3.2.5
 django-extensions
 python-decouple
 dj-database-url
