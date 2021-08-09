@@ -6,16 +6,17 @@ Uma plataforma de comunicação para agendar o envio de mensagens por vários me
 
 ## Para executar, desenvolver e/ou testar...
 
-Para a aplicação, certifique-se de ter o Git e o Python 3.9.6 instalado:
+Para a aplicação, certifique-se de ter o Git e o Python 3.6 instalado:
 
 1. Clone o repositório
-2. Crie um *virtualenv* com Python 3.9.6
+2. Crie um *virtualenv* com Python 3.6
 3. Ative o *virtualenv*
 4. Instale as dependências do projeto
 5. Configure a instância da aplicação com o .env
-6. Execute as migrações de banco de dados   
-7. Execute os testes
-8. Rode o servidor da aplicação
+6. Suba a instância do Postgres com o docker-compose
+7. Execute as migrações de banco de dados   
+8. Execute os testes
+9. Rode o servidor da aplicação
 
 ```console
 git clone git@github.com:berrondo/saec.git saec
@@ -27,6 +28,8 @@ source env/bin/activate
 pip install -r requirements-dev.txt
 cp contrib/env_sample .env
 
+docker-compose up --build -d db
+
 python manage.py migrate
 pytest
 python manage.py runserver
@@ -34,7 +37,7 @@ python manage.py runserver
 
 ### Postgres (docker-compose):
 
-Levante o banco de dados. Voce não precisa ter o *postgres* instalado se tiver o *docker-compose*:
+Para levantar e parar a instância do banco de dados, voce não precisa ter o *postgres* instalado se tiver o *docker-compose*:
 
 ```console
 # para executar o banco de dados postgres
