@@ -41,7 +41,7 @@ Para levantar e parar a instância do banco de dados, voce não precisa ter o *p
 
 ```console
 # para executar o banco de dados postgres
-docker-compose up --build -d
+docker-compose up --build -d db
 
 # para parar o banco de dados:
 docker-compose down
