@@ -3,4 +3,5 @@ django-extensions
 python-decouple
 dj-database-url
 djangorestframework
+whitenoise
 psycopg2-binary

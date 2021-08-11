@@ -6,6 +6,23 @@ Uma plataforma de comunicação para agendar o envio de mensagens por vários me
 
 ## Para executar, desenvolver e/ou testar...
 
+### Usando apenas Docker e docker-compose:
+
+Certifique-se de ter o Git, Docker e docker-compose instalados:
+
+1. Clone o repositório
+2. Crie a imagem e suba o conteiner da aplicação de do banco \o/
+
+```console
+git clone git@github.com:berrondo/saec.git saec
+cd saec
+docker-compose up --build -d
+```
+
+Voce poderá acessar a aplicação em http://localhost:8000
+
+### Usando docker-compose apenas para o banco de dados:
+
 Para a aplicação, certifique-se de ter o Git e o Python 3.6 instalado:
 
 1. Clone o repositório
@@ -37,7 +54,7 @@ python manage.py runserver
 
 ### Postgres (docker-compose):
 
-Para levantar e parar a instância do banco de dados, voce não precisa ter o *postgres* instalado se tiver o *docker-compose*:
+Para levantar e parar apenas a instância do banco de dados, voce não precisa ter o *postgres* instalado se tiver o *docker-compose*:
 
 ```console
 # para executar o banco de dados postgres
