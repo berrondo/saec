@@ -1,0 +1,21 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 8080
+    onOpen: open-preview
+
+tasks:
+  - init:
+      pip install -r requirements-dev.txt &&
+      python manage.py migrate &&
+      mkdir staticfiles &&
+      python manage.py collectstatic --no-input --clear &&
+      pytest
+    command:
+      python manage.py runserver 0.0.0.0:8080
+
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true

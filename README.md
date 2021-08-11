@@ -6,12 +6,18 @@ Uma plataforma de comunicação para agendar o envio de mensagens por vários me
 
 ## Para executar, desenvolver e/ou testar...
 
+### Gitpod
+
+Clicando no botão [Gitpod | ready-to-code], você pode rodar e interagir com a aplicação na nuvem (rodando com postgres!), no https://gitpod.io , além de ter acesso ao código, aos testes e tudo o mais através de um vscode e do terminal! é só clicar:
+
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/berrondo/saec)
+
 ### Usando apenas Docker e docker-compose:
 
 Certifique-se de ter o Git, Docker e docker-compose instalados:
 
 1. Clone o repositório
-2. Crie a imagem e suba o conteiner da aplicação de do banco \o/
+2. Crie a imagem e suba o conteiner da aplicação e do banco \o/
 
 ```console
 git clone git@github.com:berrondo/saec.git saec
@@ -23,10 +29,10 @@ Voce poderá acessar a aplicação em http://localhost:8000
 
 ### Usando docker-compose apenas para o banco de dados:
 
-Para a aplicação, certifique-se de ter o Git e o Python 3.6 instalado:
+Para a aplicação, certifique-se de ter o Git e o Python 3.8 instalado:
 
 1. Clone o repositório
-2. Crie um *virtualenv* com Python 3.6
+2. Crie um *virtualenv* com Python 3.8
 3. Ative o *virtualenv*
 4. Instale as dependências do projeto
 5. Configure a instância da aplicação com o .env
